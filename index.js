@@ -37,6 +37,15 @@ async function run() {
       res.send(result);
     });
 
+    // 1.0 my requirement is create document count for pagination.
+    // Note: the concept of pagination is show the product in ui by product count. i.e we don't want to show the all products in a single page. we will show it by count
+
+    app.get("/productsCount", async (req, res) => {
+      const count = await productCollection.estimatedDocumentCount();
+      // 1.2 send the count as object
+      res.send({ count }); //now in browser url type http://localhost:5000/productsCount u will get the {"count": 76}
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
